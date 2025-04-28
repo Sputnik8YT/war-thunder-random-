@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>War Thunder Random Vehicle</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1b1b1b;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url('https://example.com/war-thunder-background.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 80px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      text-align: center;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 15px 25px;
+      margin: 5px;
+      background-color: #f7b500;
+      color: #1b1b1b;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff9e00;
+      transform: scale(1.05);
+    }
+
+    #backButton {
+      background-color: #e22d2d;
+      color: white;
+    }
+
+    #backButton:hover {
+      background-color: #c22a2a;
+    }
+
+    #officialButton {
+      background-color: #0066cc;
+      color: white;
+    }
+
+    #officialButton:hover {
+      background-color: #005bb5;
+    }
+
+    /* Botón de idiomas */
+    .language-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .language-toggle img {
+      width: 30px;
+      height: 20px;
+    }
+
+    /* Pestaña emergente */
+    .language-popup {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 55px;
+      right: 20px;
+      background-color: #2c2c2c;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+      z-index: 1000;
+    }
+
+    .lang-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin: 5px 0;
+    }
+
+    .lang-button img {
+      width: 25px;
+      height: 18px;
+      border-radius: 3px;
+      box-shadow: 0 0 3px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .lang-button img:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botón para abrir la pestaña de idiomas -->
+  <button class="language-toggle" onclick="toggleLanguagePopup()">
+    <img src="https://flagcdn.com/w20/gb.png" alt="Select Language">
+  </button>
+
+  <!-- Pestaña emergente -->
+  <div class="language-popup" id="languagePopup">
+    <button class="lang-button" onclick="changeLanguage('es')">
+      <img src="https://flagcdn.com/w20/es.png" alt="Español">
+    </button>
+    <button class="lang-button" onclick="changeLanguage('en')">
+      <img src="https://flagcdn.com/w20/gb.png" alt="English">
+    </button>
+    <button class="lang-button" onclick="changeLanguage('ru')">
+      <img src="https://flagcdn.com/w20/ru.png" alt="Русский">
+    </button>
+  </div>
+
+  <h1 id="main-title">War Thunder: ¡Ve a un vehículo aleatorio!</h1>
+
+  <div class="button-container">
+    <button id="randomButton" onclick="goToRandomLink()">
+      Ir al vehículo aleatorio
+    </button>
+
+    <button id="backButton" onclick="history.back()">
+      Volver
+    </button>
+
+    <button id="officialButton" onclick="window.location.href='https://warthunder.com'">
+      Visitar la página oficial de War Thunder
+    </button>
+  </div>
+
+  <script>
+    function goToRandomLink() {
+      document.getElementById("randomButton").style.display = "none";
+
+      const links = [
+        'https://wiki.warthunder.com/randomVehicle?tree=2',
+        'https://wiki.warthunder.com/randomVehicle?tree=0'
+      ];
+
+      const randomIndex = Math.floor(Math.random() * links.length);
+      window.location.href = links[randomIndex];
+
+      setTimeout(function() {
+        document.getElementById("randomButton").style.display = "inline-block";
+      }, 300000);
+    }
+
+    function changeLanguage(lang) {
+      const texts = {
+        es: {
+          title: "War Thunder: ¡Ve a un vehículo aleatorio!",
+          random: "Ir al vehículo aleatorio",
+          back: "Volver",
+          official: "Visitar la página oficial de War Thunder"
+        },
+        en: {
+          title: "War Thunder: Go to a random vehicle!",
+          random: "Go to random vehicle",
+          back: "Back",
+          official: "Visit the official War Thunder page"
+        },
+        ru: {
+          title: "War Thunder: Перейти к случайной технике!",
+          random: "Перейти к случайной технике",
+          back: "Назад",
+          official: "Официальный сайт War Thunder"
+        }
+      };
+
+      document.getElementById("main-title").innerText = texts[lang].title;
+      document.getElementById("randomButton").innerText = texts[lang].random;
+      document.getElementById("backButton").innerText = texts[lang].back;
+      document.getElementById("officialButton").innerText = texts[lang].official;
+    }
+
+    function toggleLanguagePopup() {
+      const popup = document.getElementById('languagePopup');
+      popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // Cierra la pestaña emergente si haces click fuera
+    document.addEventListener('click', function(event) {
+      const popup = document.getElementById('languagePopup');
+      const button = document.querySelector('.language-toggle');
+      if (!popup.contains(event.target) && !button.contains(event.target)) {
+        popup.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
